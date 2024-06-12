@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Test Page</title>
+  </head>
+  <body>
+    <div>id:<input type="text" id="id" /></div>
+    <div>username:<input type="text" id="username" /></div>
+    <div>password:<input type="text" id="password" /></div>
+    <div>age:<input type="text" id="age" /></div>
+    <div><button onclick="login()">Login</button></div>
+    <!--引入axios-->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+      var id = document.querySelector("#id");
+      var username = document.querySelector("#username");
+      var password = document.querySelector("#password");
+      var age = document.querySelector("#age");
+      var i = 0;
+      function displayData() {
+        axios({
+          url: "http://localhost:3030/user/",
+        }).then((result) => {
+          console.log(result);
+          id.value = result.data[i].id;
+          username.value = result.data[i].username;
+          password.value = result.data[i].password;
+          age.value = result.data[i].age;
+        });
+      }
+      displayData();
+
+      function login() {
+        i++;
+        displayData();
+      }
+    </script>
+  </body>
+</html>
